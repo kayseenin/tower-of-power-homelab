@@ -1,0 +1,102 @@
+# Homelab Core Stack
+# Docker Compose configuration for essential homelab services
+# Deploy via Portainer or docker-compose CLI
+
+version: '3.8'
+
+services:
+  # ============================================
+  # PORTAINER - Container Management
+  # ============================================
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    restart: unless-stopped
+    labels:
+      - "com.homelab.description=Container management web UI"
+
+  # ============================================
+  # UPTIME KUMA - Service Monitoring
+  # ============================================
+  uptime-kuma:
+    image: louislam/uptime-kuma:1
+    container_name: uptime-kuma
+    ports:
+      - "3001:3001"
+    volumes:
+      - uptime-kuma:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: unless-stopped
+    labels:
+      - "com.homelab.description=Service monitoring and status page"
+
+  # ============================================
+  # DOZZLE - Container Log Viewer (Optional)
+  # ============================================
+  # Uncomment to enable real-time log viewing
+  # dozzle:
+  #   image: amir20/dozzle:latest
+  #   container_name: dozzle
+  #   ports:
+  #     - "8080:8080"
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #   restart: unless-stopped
+  #   labels:
+  #     - "com.homelab.description=Real-time Docker log viewer"
+
+  # ============================================
+  # WATCHTOWER - Auto-Update Containers (Optional)
+  # ============================================
+  # Uncomment to enable automatic container updates
+  # watchtower:
+  #   image: containrrr/watchtower
+  #   container_name: watchtower
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   environment:
+  #     - WATCHTOWER_CLEANUP=true
+  #     - WATCHTOWER_SCHEDULE=0 0 4 * * *  # 4 AM daily
+  #     - WATCHTOWER_INCLUDE_STOPPED=false
+  #     - WATCHTOWER_REVIVE_STOPPED=false
+  #   restart: unless-stopped
+  #   labels:
+  #     - "com.homelab.description=Automatic container updates"
+
+  # ============================================
+  # HOMEPAGE - Dashboard (Optional)
+  # ============================================
+  # Uncomment to enable unified dashboard
+  # homepage:
+  #   image: ghcr.io/gethomepage/homepage:latest
+  #   container_name: homepage
+  #   ports:
+  #     - "3000:3000"
+  #   volumes:
+  #     - ./homepage-config:/app/config
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #   restart: unless-stopped
+  #   labels:
+  #     - "com.homelab.description=Unified service dashboard"
+
+# ============================================
+# VOLUMES
+# ============================================
+volumes:
+  portainer_data:
+    driver: local
+  uptime-kuma:
+    driver: local
+
+# ============================================
+# NETWORKS (Optional)
+# ============================================
+# Uncomment to create custom network
+# networks:
+#   homelab:
+#     driver: bridge

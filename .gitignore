@@ -1,0 +1,76 @@
+# Navigate to your homelab folder
+cd ~/Documents/homelab
+
+# Create the .gitignore file
+nano .gitignore
+```
+
+Paste this content:
+```
+# Homelab Repository .gitignore
+
+# Sensitive Information
+*.env
+.env.*
+secrets/
+credentials/
+*.key
+*.pem
+*.crt
+*.p12
+
+# Passwords and API Keys
+*password*
+*apikey*
+*token*
+
+# Configuration Files with Sensitive Data
+**/config/users.yml
+**/config/secrets.yaml
+
+# Logs
+*.log
+logs/
+
+# Backup Files
+*.backup
+*.bak
+backups/
+*.tar.gz
+*.zip
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Docker
+docker-compose.override.yml
+
+# Homepage Dashboard Config (may contain sensitive info)
+homepage-config/
+
+# IDE and Editor Files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary Files
+tmp/
+temp/
+*.tmp
+
+# OS Files
+Thumbs.db
+Desktop.ini
+
+# Volume Data (if stored locally)
+volumes/
+
+# Personal Notes
+notes.txt
+todo.md
+scratch/

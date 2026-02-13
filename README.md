@@ -1,5 +1,9 @@
 # Homelab Infrastructure Project
 
+![GitHub last commit](https://img.shields.io/github/last-commit/YOUR-USERNAME/homelab)
+![GitHub repo size](https://img.shields.io/github/repo-size/YOUR-USERNAME/homelab)
+![GitHub stars](https://img.shields.io/github/stars/YOUR-USERNAME/homelab?style=social)
+
 A self-hosted infrastructure setup for learning modern DevOps practices, containerization, network security, and remote access technologies.
 
 ![Status](https://img.shields.io/badge/status-active-success)

@@ -323,3 +323,4 @@ MIT License - Use as inspiration for your own homelab!
 ---
 
 **Follow along:** Check `docs/build-log-phaseX-*.md` for detailed progress.
+

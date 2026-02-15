@@ -1,47 +1,82 @@
-# Homelab Infrastructure Project
+# Tower of Power Homelab
 
-![GitHub last commit](https://img.shields.io/github/last-commit/YOUR-USERNAME/homelab)
-![GitHub repo size](https://img.shields.io/github/repo-size/YOUR-USERNAME/homelab)
-![GitHub stars](https://img.shields.io/github/stars/YOUR-USERNAME/homelab?style=social)
-
-A self-hosted infrastructure setup for learning modern DevOps practices, containerization, network security, and remote access technologies.
+Self-hosted infrastructure with Docker, monitoring, and policy-based networking.
 
 ![Status](https://img.shields.io/badge/status-active-success)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
 ![Raspberry Pi](https://img.shields.io/badge/Raspberry%20Pi-A22846?style=flat&logo=Raspberry%20Pi&logoColor=white)
 ![OpenWRT](https://img.shields.io/badge/OpenWRT-00B5E2?style=flat&logo=openwrt&logoColor=white)
 
+---
+
 ## 🎯 Project Goals
 
-- Learn container orchestration with Docker and Portainer
+- Learn container orchestration and infrastructure management
 - Implement network-wide ad blocking and privacy protection
-- Enable secure remote access without exposing services to the internet
+- Enable secure remote access without internet exposure
 - Build automated monitoring and alerting systems
 - Practice Infrastructure as Code principles
-- Gain hands-on experience with tools used in production environments
+- Gain hands-on experience with production-grade tools
 
 ---
 
-## 🏗️ Current Architecture
+## 🚧 Current Status: Systematic Rebuild
+
+Building from scratch with proper documentation and professional practices.
+
+**Why rebuilding:**
+- Fix Tailscale cross-platform connectivity issues
+- Establish proper network foundation
+- Document every decision and configuration
+- Learn the "why" behind each component
+
+### Phase Progress
+
+**✅ Phase 1: Router Foundation** - Complete
+- GL-BE3600 configured with 10.X.0.0/16 network
+- SSH key authentication implemented
+- Essential packages installed
+- Internet connectivity verified
+
+**⏳ Phase 2: Network Infrastructure** - Next
+- MikroTik CRS310 switch configuration
+- Physical topology establishment
+- Layer 2 connectivity testing
+
+**📋 Phase 3: DNS & Ad Blocking** - Planned
+- Raspberry Pi setup with Pi-hole
+- Network-wide ad blocking
+- DNS architecture
+
+**📋 Phase 4: Remote Access** - Planned
+- Tailscale mesh VPN deployment
+- Subnet routing configuration
+- MagicDNS setup
+
+**📋 Phase 5: Service Expansion** - Planned
+- Docker service expansion
+- Local AI deployment (LM Studio)
+- Additional self-hosted applications
+
+**📋 Phase 6: Advanced Features** - Future
+- VPN policy routing for streaming
+- VLAN implementation
+- Automated monitoring & alerts
+
+---
+
+## 🏗️ Architecture
 
 ### Hardware
-- **Mac Mini M4** - Primary server running Docker and Portainer
-- **Raspberry Pi** - Dedicated DNS/ad-blocking server (planned)
-- **GL.iNet GL-MT3000** - OpenWRT travel router with VPN capabilities (planned)
-- **MikroTik Managed Switch** - Enterprise VLAN support (planned)
-- **Nvidia Shield Pro 2019** - Primary streaming device
-- **HP Omen 16** - Game streaming host with Sunshine (planned)
 
-### Software Stack (Current)
-- **Docker** - Container runtime
-- **Portainer** - Container management web UI
-- **Uptime Kuma** - Service monitoring and status dashboard
-- **Tailscale** - Zero-trust mesh VPN (planned)
-- **Healthchecks.io** - External monitoring with dead man's switch
+- **Mac Mini M4** - Primary server (Docker, Portainer)
+- **GL-BE3600** - WiFi 7 travel router (OpenWRT)
+- **MikroTik CRS310** - 10-port managed switch
+- **Raspberry Pi** - DNS/ad-blocking (Pi-hole)
+- **Nvidia Shield Pro** - Primary streaming device
+- **HP Omen 16** - Game streaming host
 
----
-
-## 🚀 What's Running
+### Current Services
 
 | Service | Purpose | Port | Status |
 |---------|---------|------|--------|
@@ -50,101 +85,16 @@ A self-hosted infrastructure setup for learning modern DevOps practices, contain
 
 ---
 
-## 📊 Current Setup Progress
-
-### ✅ Completed (Phase 1)
-- [x] Mac Mini configured for remote SSH access from MacBook
-- [x] Docker installed and configured on Mac Mini
-- [x] Portainer deployed for container management
-- [x] Uptime Kuma deployed for service monitoring
-- [x] Healthchecks.io configured with cron-based heartbeat monitoring
-- [x] Basic monitoring setup (HTTP and Ping monitors)
-- [x] Container orchestration via docker-compose
-
-### 🔄 In Progress (Phase 2)
-- [ ] Raspberry Pi setup with Pi-hole for DNS-based ad blocking
-- [ ] Tailscale mesh VPN deployment across all devices
-- [ ] OpenWRT router configuration with VLANs
-- [ ] MikroTik switch VLAN configuration
-
-### 📋 Planned (Phase 3+)
-- [ ] VPN policy-based routing for F1 TV bypass
-- [ ] Game streaming setup (Sunshine/Moonlight)
-- [ ] Homepage dashboard deployment
-- [ ] Automated captive portal authentication for travel
-- [ ] Media server (Jellyfin/Plex)
-- [ ] File synchronization (Nextcloud)
-- [ ] Advanced network monitoring (Prometheus + Grafana)
-
----
-
 ## 📚 Documentation
 
 - [Getting Started Guide](docs/getting-started.md) - Initial setup walkthrough
-- [Docker Setup](docs/docker-setup.md) - Docker and Portainer configuration
-- [Monitoring Setup](docs/monitoring-setup.md) - Uptime Kuma and Healthchecks configuration
+- [Docker Setup](docs/docker-setup.md) - Container configuration
+- [Monitoring Setup](docs/monitoring-setup.md) - Uptime Kuma & Healthchecks
 - [Lessons Learned](docs/lessons-learned.md) - Challenges and solutions
 
----
+### Build Logs
 
-## 🛠️ Quick Start
-
-### Prerequisites
-- Mac Mini (or any server) with macOS or Linux
-- Basic familiarity with terminal/SSH
-- Docker installed
-
-### Initial Setup
-
-1. **Enable Remote Login on Mac Mini:**
-   ```bash
-   # On Mac Mini: System Settings → General → Sharing → Remote Login
-   ```
-
-2. **SSH from your MacBook:**
-   ```bash
-   ssh username@mac-mini-ip
-   ```
-
-3. **Install Docker:**
-   ```bash
-   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-   brew install --cask docker
-   open -a Docker
-   ```
-
-4. **Deploy Portainer:**
-   ```bash
-   docker volume create portainer_data
-   docker run -d -p 9000:9000 --name portainer --restart always \
-     -v /var/run/docker.sock:/var/run/docker.sock \
-     -v portainer_data:/data \
-     portainer/portainer-ce:latest
-   ```
-
-5. **Access Portainer:**
-   - Navigate to `http://mac-mini-ip:9000`
-   - Create admin credentials
-   - Select local Docker environment
-
----
-
-## 🔍 Monitoring & Alerting
-
-### Internal Monitoring
-- **Uptime Kuma** running on Mac Mini monitors all local services
-- Accessible at `http://mac-mini-ip:3001`
-
-### External Monitoring
-- **Healthchecks.io** monitors Mac Mini availability via cron heartbeat
-- Pings every 5 minutes
-- Email alerts if heartbeat stops
-
-### Current Monitors
-- Portainer web interface (HTTP)
-- Uptime Kuma web interface (HTTP)
-- Mac Mini availability (Ping)
-- Mac Mini SSH access (Port 22)
+- [Phase 1: Router Foundation](docs/build-log-phase1-router.md) - GL-BE3600 setup
 
 ---
 
@@ -155,67 +105,221 @@ A self-hosted infrastructure setup for learning modern DevOps practices, contain
 - Infrastructure as Code (docker-compose)
 - Remote system administration (SSH)
 - Service monitoring and alerting
-- Dead man's switch implementation
+- Network architecture design
 
-### Networking (Planned)
-- VLAN configuration and network segmentation
-- VPN setup and policy-based routing
-- DNS architecture and ad blocking
-- Firewall configuration
+### Networking
+- Professional subnet design (10.X.0.0/16)
+- Router configuration (OpenWRT)
+- Switch management (MikroTik)
+- VPN mesh networking (Tailscale)
+- DNS architecture (Pi-hole)
 
 ### Automation
 - Cron job scheduling
 - Automated health checks
-- Container auto-updates (planned)
+- Dead man's switch monitoring
+- Container lifecycle management
+
+---
+
+## 🚀 Quick Start
+
+**Prerequisites:**
+- Mac Mini or server with Docker
+- Basic terminal/SSH knowledge
+
+**Setup:**
+1. Enable Remote Login on server
+2. Install Docker via Homebrew
+3. Deploy Portainer for container management
+4. Configure monitoring
+
+cat > README.md << 'EOF'
+# Tower of Power Homelab
+
+Self-hosted infrastructure with Docker, monitoring, and policy-based networking.
+
+![Status](https://img.shields.io/badge/status-active-success)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
+![Raspberry Pi](https://img.shields.io/badge/Raspberry%20Pi-A22846?style=flat&logo=Raspberry%20Pi&logoColor=white)
+![OpenWRT](https://img.shields.io/badge/OpenWRT-00B5E2?style=flat&logo=openwrt&logoColor=white)
+
+---
+
+## 🎯 Project Goals
+
+- Learn container orchestration and infrastructure management
+- Implement network-wide ad blocking and privacy protection
+- Enable secure remote access without internet exposure
+- Build automated monitoring and alerting systems
+- Practice Infrastructure as Code principles
+- Gain hands-on experience with production-grade tools
+
+---
+
+## 🚧 Current Status: Systematic Rebuild
+
+Building from scratch with proper documentation and professional practices.
+
+**Why rebuilding:**
+- Fix Tailscale cross-platform connectivity issues
+- Establish proper network foundation
+- Document every decision and configuration
+- Learn the "why" behind each component
+
+### Phase Progress
+
+**✅ Phase 1: Router Foundation** - Complete
+- GL-BE3600 configured with 10.X.0.0/16 network
+- SSH key authentication implemented
+- Essential packages installed
+- Internet connectivity verified
+
+**⏳ Phase 2: Network Infrastructure** - Next
+- MikroTik CRS310 switch configuration
+- Physical topology establishment
+- Layer 2 connectivity testing
+
+**📋 Phase 3: DNS & Ad Blocking** - Planned
+- Raspberry Pi setup with Pi-hole
+- Network-wide ad blocking
+- DNS architecture
+
+**📋 Phase 4: Remote Access** - Planned
+- Tailscale mesh VPN deployment
+- Subnet routing configuration
+- MagicDNS setup
+
+**📋 Phase 5: Service Expansion** - Planned
+- Docker service expansion
+- Local AI deployment (LM Studio)
+- Additional self-hosted applications
+
+**📋 Phase 6: Advanced Features** - Future
+- VPN policy routing for streaming
+- VLAN implementation
+- Automated monitoring & alerts
+
+---
+
+## 🏗️ Architecture
+
+### Hardware
+
+- **Mac Mini M4** - Primary server (Docker, Portainer)
+- **GL-BE3600** - WiFi 7 travel router (OpenWRT)
+- **MikroTik CRS310** - 10-port managed switch
+- **Raspberry Pi** - DNS/ad-blocking (Pi-hole)
+- **Nvidia Shield Pro** - Primary streaming device
+- **HP Omen 16** - Game streaming host
+
+### Current Services
+
+| Service | Purpose | Port | Status |
+|---------|---------|------|--------|
+| Portainer | Container Management | 9000 | ✅ Running |
+| Uptime Kuma | Service Monitoring | 3001 | ✅ Running |
+
+---
+
+## 📚 Documentation
+
+- [Getting Started Guide](docs/getting-started.md) - Initial setup walkthrough
+- [Docker Setup](docs/docker-setup.md) - Container configuration
+- [Monitoring Setup](docs/monitoring-setup.md) - Uptime Kuma & Healthchecks
+- [Lessons Learned](docs/lessons-learned.md) - Challenges and solutions
+
+### Build Logs
+
+- [Phase 1: Router Foundation](docs/build-log-phase1-router.md) - GL-BE3600 setup
+
+---
+
+## 🎓 Skills Demonstrated
+
+### DevOps & Infrastructure
+- Container orchestration (Docker)
+- Infrastructure as Code (docker-compose)
+- Remote system administration (SSH)
+- Service monitoring and alerting
+- Network architecture design
+
+### Networking
+- Professional subnet design (10.X.0.0/16)
+- Router configuration (OpenWRT)
+- Switch management (MikroTik)
+- VPN mesh networking (Tailscale)
+- DNS architecture (Pi-hole)
+
+### Automation
+- Cron job scheduling
+- Automated health checks
+- Dead man's switch monitoring
+- Container lifecycle management
+
+---
+
+## 🚀 Quick Start
+
+**Prerequisites:**
+- Mac Mini or server with Docker
+- Basic terminal/SSH knowledge
+
+**Setup:**
+1. Enable Remote Login on server
+2. Install Docker via Homebrew
+3. Deploy Portainer for container management
+4. Configure monitoring with Uptime Kuma
+5. Set up external monitoring (Healthchecks.io)
+
+See [Getting Started Guide](docs/getting-started.md) for detailed instructions.
 
 ---
 
 ## 🔮 Future Enhancements
 
-**Short Term:**
-- Deploy Homepage dashboard for unified service access
-- Set up Pi-hole on Raspberry Pi
-- Configure Tailscale for remote access
-- Add Dozzle for container log viewing
+**Next up:**
+- MikroTik switch integration
+- Raspberry Pi with Pi-hole
+- Tailscale remote access
+- Homepage dashboard
 
-**Medium Term:**
-- Implement OpenWRT with VLANs (Management, Trusted, IoT, Lab, Guest)
-- Configure policy-based VPN routing
-- Set up game streaming with Sunshine/Moonlight
-- Add automated backups
-
-**Long Term:**
-- Jellyfin media server
-- Nextcloud file synchronization
-- Prometheus + Grafana monitoring stack
-- Home Assistant integration
-- Automated captive portal bypass for travel
+**Later:**
+- VLAN segmentation
+- VPN policy routing
+- Game streaming (Sunshine/Moonlight)
+- Media server (Jellyfin)
+- File sync (Nextcloud)
+- Advanced monitoring (Grafana)
 
 ---
 
 ## 📝 Development Log
 
-### 2025-02-13 - Initial Setup
-- Established SSH connectivity between MacBook and Mac Mini
-- Installed Docker and Portainer on Mac Mini
-- Deployed Uptime Kuma for service monitoring
-- Configured Healthchecks.io external monitoring with cron
-- Created initial monitoring dashboards
+**February 14, 2025 - Phase 1 Complete**
+- Configured GL-BE3600 router with professional subnet
+- Implemented SSH key authentication
+- Installed essential networking tools
+- Established network foundation
+
+**February 13, 2025 - Initial Setup**
+- Mac Mini Docker and Portainer deployment
+- Uptime Kuma monitoring configuration
+- Healthchecks.io external monitoring
+- Initial documentation created
 
 ---
 
 ## 🤝 Acknowledgments
 
-This project was developed with guidance from Claude (Anthropic) for architecture planning, troubleshooting, and documentation.
+Developed with guidance from Claude (Anthropic) for architecture planning, troubleshooting, and documentation.
 
 ---
 
 ## 📄 License
 
-MIT License - Feel free to use this as inspiration for your own homelab!
+MIT License - Use as inspiration for your own homelab!
 
 ---
 
-## 📬 Contact
-
-Questions or suggestions? Open an issue in this repository!
+**Follow along:** Check `docs/build-log-phaseX-*.md` for detailed progress.
